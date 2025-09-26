@@ -1,0 +1,84 @@
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  Patch,
+  Post,
+  Query,
+} from "@nestjs/common";
+import {
+  ApiAcceptedResponse,
+  ApiBadGatewayResponse,
+  ApiCreatedResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiQuery,
+  ApiTags,
+  ApiUnprocessableEntityResponse,
+} from "@nestjs/swagger";
+
+import { Permission } from "../../../../domain/enums";
+import { User } from "../../../../domain/entities";
+import { UserService } from "../../services";
+import { CreateUserDto, UpdateUserDto } from "../../dtos";
+import { Auth } from "../../decorators";
+
+@Controller("users")
+@ApiTags("User")
+export class UserController {
+  constructor(private readonly userService: UserService) {}
+
+  @Get()
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @Auth(Permission.ReadUser)
+  public find() {
+    return this.userService.find();
+  }
+
+  @Get(":userId")
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  @Auth(Permission.ReadUser)
+  public findOne(@Param("userId") userId: string) {
+    return this.userService.findOne(userId);
+  }
+
+  @Post()
+  @HttpCode(HttpStatus.CREATED)
+  @ApiCreatedResponse()
+  @ApiBadGatewayResponse()
+  @ApiUnprocessableEntityResponse()
+  @Auth(Permission.WriteUser)
+  public create(@Body() createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
+  }
+
+  @Patch(":userId")
+  @HttpCode(HttpStatus.ACCEPTED)
+  @ApiCreatedResponse()
+  @ApiBadGatewayResponse()
+  @ApiUnprocessableEntityResponse()
+  @Auth(Permission.WriteUser)
+  public update(
+    @Param("userId") userId: string,
+    @Body() updateUserDto: UpdateUserDto
+  ) {
+    const updateData = { ...updateUserDto, id: userId };
+    return this.userService.update(updateData);
+  }
+
+  @Delete(":userId")
+  @HttpCode(HttpStatus.NO_CONTENT)
+  @ApiNoContentResponse()
+  @ApiNotFoundResponse()
+  public delete(@Param("userId") userId: string) {
+    return this.userService.delete(userId);
+  }
+}
