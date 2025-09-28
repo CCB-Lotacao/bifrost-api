@@ -33,8 +33,7 @@ let UserController = class UserController {
         return this.userService.create(createUserDto);
     }
     update(userId, updateUserDto) {
-        const updateData = { ...updateUserDto, id: userId };
-        return this.userService.update(updateData);
+        return this.userService.update(userId, updateUserDto);
     }
     delete(userId) {
         return this.userService.delete(userId);

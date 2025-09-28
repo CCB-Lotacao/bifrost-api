@@ -18,13 +18,6 @@ class UpdateUserDto {
 exports.UpdateUserDto = UpdateUserDto;
 __decorate([
     (0, classes_1.AutoMap)(),
-    (0, class_validator_1.IsUUID)(),
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, swagger_1.ApiProperty)({ required: true }),
-    __metadata("design:type", String)
-], UpdateUserDto.prototype, "id", void 0);
-__decorate([
-    (0, classes_1.AutoMap)(),
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsOptional)(),
     (0, swagger_1.ApiProperty)({ required: false, example: "Brendon Fall" }),

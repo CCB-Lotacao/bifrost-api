@@ -20,8 +20,8 @@ import { User } from "./domain/entities";
         password: configService.get("database.password"),
         database: configService.get("database.database"),
         entities: [User],
-        synchronize: true, // Apenas para desenvolvimento
-        logging: true,
+        synchronize: true,
+        logging: false,
       }),
       inject: [ConfigService],
     }),

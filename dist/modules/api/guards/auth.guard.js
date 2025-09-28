@@ -19,13 +19,9 @@ let AuthGuard = class AuthGuard {
     }
     async canActivate(context) {
         const requiredPermission = this.reflector.get(decorators_1.REQUIRED_PERMISSION_KEY, context.getHandler());
-        // Para simplificar, vamos permitir acesso sem autenticação por enquanto
-        // Em um ambiente de produção, você implementaria JWT ou outro sistema de auth
         if (!requiredPermission) {
             return true;
         }
-        // Aqui você implementaria a lógica de verificação de permissões
-        // Por enquanto, vamos sempre retornar true para permitir acesso
         return true;
     }
 };

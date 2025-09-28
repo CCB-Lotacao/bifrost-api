@@ -51,19 +51,16 @@ export class UserService {
     return user;
   }
 
-  public async update(updateUserDto: UpdateUserDto): Promise<User> {
+  public async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
     try {
-      const user = await User.findOneBy({ id: updateUserDto.id });
-
+      const user = await User.findOneBy({ id });
       if (!user) {
-        throw new NotFoundException(`User ID ${updateUserDto.id} not found`);
+        throw new NotFoundException(`User ID ${id} not found`);
       }
-
       Object.assign(user, updateUserDto);
       return await User.save(user);
     } catch (error) {
       console.error("Error updating user:", error);
-
       throw new InternalServerErrorException(
         "An error occurred while updating the user. Please try again later."
       );

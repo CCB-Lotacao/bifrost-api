@@ -40,11 +40,11 @@ let UserService = class UserService {
         }));
         return user;
     }
-    async update(updateUserDto) {
+    async update(id, updateUserDto) {
         try {
-            const user = await entities_1.User.findOneBy({ id: updateUserDto.id });
+            const user = await entities_1.User.findOneBy({ id });
             if (!user) {
-                throw new common_1.NotFoundException(`User ID ${updateUserDto.id} not found`);
+                throw new common_1.NotFoundException(`User ID ${id} not found`);
             }
             Object.assign(user, updateUserDto);
             return await entities_1.User.save(user);

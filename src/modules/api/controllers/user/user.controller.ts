@@ -8,22 +8,18 @@ import {
   Param,
   Patch,
   Post,
-  Query,
 } from "@nestjs/common";
 import {
-  ApiAcceptedResponse,
   ApiBadGatewayResponse,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiQuery,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from "@nestjs/swagger";
 
 import { Permission } from "../../../../domain/enums";
-import { User } from "../../../../domain/entities";
 import { UserService } from "../../services";
 import { CreateUserDto, UpdateUserDto } from "../../dtos";
 import { Auth } from "../../decorators";
@@ -70,8 +66,7 @@ export class UserController {
     @Param("userId") userId: string,
     @Body() updateUserDto: UpdateUserDto
   ) {
-    const updateData = { ...updateUserDto, id: userId };
-    return this.userService.update(updateData);
+    return this.userService.update(userId, updateUserDto);
   }
 
   @Delete(":userId")

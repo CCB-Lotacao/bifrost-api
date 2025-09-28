@@ -114,3 +114,11 @@ A aplicação usa TypeORM com MySQL. As entidades são automaticamente sincroniz
 | `DB_DATABASE` | Nome do banco      | bifrost_db  |
 | `PORT`        | Porta da aplicação | 3000        |
 | `NODE_ENV`    | Ambiente           | development |
+
+# 1. Subir apenas o banco (não a aplicação):
+
+docker-compose up -d mysql phpmyadmin
+
+# 2. Rodar sua aplicação localmente:
+
+yarn start:dev

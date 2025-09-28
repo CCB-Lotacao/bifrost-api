@@ -35,8 +35,8 @@ exports.AppModule = AppModule = __decorate([
                     password: configService.get("database.password"),
                     database: configService.get("database.database"),
                     entities: [entities_1.User],
-                    synchronize: true, // Apenas para desenvolvimento
-                    logging: true,
+                    synchronize: true,
+                    logging: false,
                 }),
                 inject: [config_1.ConfigService],
             }),
