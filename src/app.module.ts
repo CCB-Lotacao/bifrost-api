@@ -5,7 +5,12 @@ import { ConfigModule, ConfigService } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import configuration from "./config/configuration";
 import { ApiModule } from "./modules";
-import { User } from "./domain/entities";
+import {
+  User,
+  VehicleManufacturer,
+  Vehicle,
+  VehicleModel,
+} from "./domain/entities";
 
 @Module({
   imports: [
@@ -19,7 +24,7 @@ import { User } from "./domain/entities";
         username: configService.get("database.username"),
         password: configService.get("database.password"),
         database: configService.get("database.database"),
-        entities: [User],
+        entities: [User, Vehicle, VehicleModel, VehicleManufacturer],
         synchronize: true,
         logging: false,
       }),

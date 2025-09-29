@@ -1,6 +1,7 @@
 import { AutoMap } from "@automapper/classes";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsEnum, IsOptional, IsString } from "class-validator";
+import { UserRole } from "../../../../domain/enums";
 
 export class UpdateUserDto {
   @AutoMap()
@@ -20,4 +21,22 @@ export class UpdateUserDto {
   @IsOptional()
   @ApiProperty({ required: false, example: "19 999999999" })
   public readonly phone?: string;
+
+  @AutoMap()
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ required: false, example: "19 999999999" })
+  public readonly state?: string;
+
+  @AutoMap()
+  @IsString()
+  @IsOptional()
+  @ApiProperty({ required: false, example: "19 999999999" })
+  public readonly city?: string;
+
+  @AutoMap()
+  @IsEnum(UserRole)
+  @IsOptional()
+  @ApiProperty({ required: false })
+  public readonly role?: UserRole;
 }

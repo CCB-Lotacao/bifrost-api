@@ -34,7 +34,7 @@ exports.AppModule = AppModule = __decorate([
                     username: configService.get("database.username"),
                     password: configService.get("database.password"),
                     database: configService.get("database.database"),
-                    entities: [entities_1.User],
+                    entities: [entities_1.User, entities_1.Vehicle, entities_1.VehicleModel, entities_1.VehicleManufacturer],
                     synchronize: true,
                     logging: false,
                 }),

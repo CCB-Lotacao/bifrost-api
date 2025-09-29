@@ -16,4 +16,4 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./userRole.enum"), exports);
 __exportStar(require("./permission.enum"), exports);
-__exportStar(require("./permission.enum"), exports);
+__exportStar(require("./vehicleType.enum"), exports);

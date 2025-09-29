@@ -13,6 +13,7 @@ exports.CreateUserDto = void 0;
 const classes_1 = require("@automapper/classes");
 const swagger_1 = require("@nestjs/swagger");
 const class_validator_1 = require("class-validator");
+const enums_1 = require("../../../../domain/enums");
 class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
@@ -37,3 +38,24 @@ __decorate([
     (0, swagger_1.ApiProperty)({ required: false, example: "19 999999999" }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "phone", void 0);
+__decorate([
+    (0, classes_1.AutoMap)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, swagger_1.ApiProperty)({ required: false }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "state", void 0);
+__decorate([
+    (0, classes_1.AutoMap)(),
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsOptional)(),
+    (0, swagger_1.ApiProperty)({ required: false }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "city", void 0);
+__decorate([
+    (0, classes_1.AutoMap)(),
+    (0, class_validator_1.IsEnum)(enums_1.UserRole),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, swagger_1.ApiProperty)({ enum: enums_1.UserRole, required: true }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "role", void 0);

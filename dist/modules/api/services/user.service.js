@@ -37,6 +37,9 @@ let UserService = class UserService {
             email: lowerCaseEmail,
             name: createUserDto.name,
             phone: createUserDto.phone,
+            role: createUserDto.role,
+            state: createUserDto.state,
+            city: createUserDto.city,
         }));
         return user;
     }

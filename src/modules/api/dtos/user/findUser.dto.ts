@@ -16,4 +16,14 @@ export class FindUserDto {
   @IsOptional()
   @IsString()
   public readonly phone?: string;
+
+  @ApiProperty({ required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public readonly state?: string;
+
+  @ApiProperty({ required: false, nullable: true })
+  @IsOptional()
+  @IsString()
+  public readonly city?: string;
 }

@@ -36,6 +36,16 @@ export class UserDto {
   public readonly phone?: string;
 
   @AutoMap()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  public readonly state?: string;
+
+  @AutoMap()
+  @IsOptional()
+  @ApiProperty({ required: false })
+  public readonly city?: string;
+
+  @AutoMap()
   @IsEnum(UserRole)
   @IsNotEmpty()
   @ApiProperty({ required: true, default: UserRole.Brotherhood })

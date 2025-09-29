@@ -4,52 +4,35 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  Index,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { AutoMap } from "@automapper/classes";
-import { UserRole } from "../enums";
+import { VehicleModel } from "./VehicleModel";
 
 @Entity()
-export class User extends BaseEntity {
+export class VehicleManufacturer extends BaseEntity {
   @AutoMap()
   @PrimaryGeneratedColumn("uuid")
   public readonly id!: string;
 
   @AutoMap()
+  @Index({ unique: true })
   @Column()
-  public name!: string;
+  public readonly name!: string;
 
-  @AutoMap()
-  @Column({ unique: true })
-  public email!: string;
-
-  @AutoMap()
-  @Column({ nullable: true })
-  public phone?: string;
-
-  @AutoMap()
-  @Column({ nullable: true })
-  public readonly state?: string;
-
-  @AutoMap()
-  @Column({ nullable: true })
-  public readonly city?: string;
-
-  @AutoMap()
-  @Column({
-    type: "enum",
-    enum: UserRole,
-    default: UserRole.Assistant,
-  })
-  public role!: UserRole;
+  @AutoMap(() => [VehicleModel])
+  @OneToMany(() => VehicleModel, (model) => model.manufacturer)
+  public readonly models!: VehicleModel[];
 
   @AutoMap()
   @CreateDateColumn({ type: "timestamp" })
   public readonly createdAt!: Date;
 
   @AutoMap()
-  @UpdateDateColumn({ type: "timestamp" })
+  @UpdateDateColumn({ type: "timestamp", nullable: true })
   public readonly updatedAt?: Date;
 
   @AutoMap()
