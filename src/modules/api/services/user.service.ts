@@ -7,7 +7,7 @@ import {
 
 import { User } from "../../../domain/entities";
 import { EntityNotFoundError, Equal, ILike } from "typeorm";
-import { CreateUserDto, FindUserDto, UpdateUserDto } from "../dtos";
+import { CreateUserDto, UpdateUserDto } from "../dtos";
 
 @Injectable()
 export class UserService {
