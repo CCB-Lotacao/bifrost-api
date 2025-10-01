@@ -8,8 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiModule = void 0;
 const common_1 = require("@nestjs/common");
+const typeorm_1 = require("@nestjs/typeorm");
 const controllers_1 = require("./controllers");
 const services_1 = require("./services");
+const vehicleManufacturer_controller_1 = require("./controllers/vehicleManufacturer/vehicleManufacturer.controller");
+const vehicleModel_service_1 = require("./services/vehicleModel.service");
+const vehicleModel_controller_1 = require("./controllers/vehicleModel/vehicleModel.controller");
+const vehicle_controller_1 = require("./controllers/vehicle/vehicle.controller");
+const repositories_1 = require("../database/repositories");
+const REPOSITORIES = [repositories_1.UserRepository, repositories_1.VehicleRepository];
 let ApiModule = class ApiModule {
     configure(consumer) {
         consumer;
@@ -18,7 +25,19 @@ let ApiModule = class ApiModule {
 exports.ApiModule = ApiModule;
 exports.ApiModule = ApiModule = __decorate([
     (0, common_1.Module)({
-        controllers: [controllers_1.UserController],
-        providers: [services_1.UserService],
+        imports: [typeorm_1.TypeOrmModule.forFeature(REPOSITORIES)],
+        controllers: [
+            controllers_1.UserController,
+            vehicleManufacturer_controller_1.VehicleManufacturerController,
+            vehicleModel_controller_1.VehicleModelController,
+            vehicle_controller_1.VehicleController,
+        ],
+        providers: [
+            services_1.UserService,
+            services_1.VehicleManufacturerService,
+            vehicleModel_service_1.VehicleModelService,
+            services_1.VehicleService,
+            ...REPOSITORIES,
+        ],
     })
 ], ApiModule);

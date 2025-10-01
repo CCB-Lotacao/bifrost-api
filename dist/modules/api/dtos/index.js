@@ -22,3 +22,16 @@ __exportStar(require("./user/findUser.dto"), exports);
 __exportStar(require("./user/user.dto"), exports);
 __exportStar(require("./user/createUser.dto"), exports);
 __exportStar(require("./user/updateUser.dto"), exports);
+// vehicle
+__exportStar(require("./vehicle/createVehicle.dto"), exports);
+__exportStar(require("./vehicle/findVehicle.dto"), exports);
+__exportStar(require("./vehicle/updateVehicle.dto"), exports);
+__exportStar(require("./vehicle/vehicle.dto"), exports);
+// vehicle model
+__exportStar(require("./vehicleModel/vehicleModel.dto"), exports);
+__exportStar(require("./vehicleModel/createVehicleModel.dto"), exports);
+__exportStar(require("./vehicleModel/findVehicleModel.dto"), exports);
+// vehicle manufacturer
+__exportStar(require("./vehicleManufacturer/vehicleManufacturer.dto"), exports);
+__exportStar(require("./vehicleManufacturer/findVehicleManufacturer.dto"), exports);
+__exportStar(require("./vehicleManufacturer/createVehicleManufacturer.dto"), exports);
