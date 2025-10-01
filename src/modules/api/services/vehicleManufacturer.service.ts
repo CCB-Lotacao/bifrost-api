@@ -1,15 +1,25 @@
 import {
   BadRequestException,
   Injectable,
+  InternalServerErrorException,
   NotFoundException,
 } from "@nestjs/common";
 import { VehicleManufacturer } from "../../../domain/entities";
 import { CreateVehicleManufacturerDto } from "../dtos";
+import { EntityNotFoundError, Equal } from "typeorm";
 
 @Injectable()
 export class VehicleManufacturerService {
   public async findOne(id: string): Promise<VehicleManufacturer> {
-    return VehicleManufacturer.findOneByOrFail({ id });
+    try {
+      return await VehicleManufacturer.findOneByOrFail({ id: Equal(id) });
+    } catch (error) {
+      if (error instanceof EntityNotFoundError) {
+        throw new NotFoundException(`Vehicle Manufacturer ${id} not found`);
+      }
+
+      throw new InternalServerErrorException(error);
+    }
   }
 
   public async find(): Promise<VehicleManufacturer[]> {
@@ -32,7 +42,7 @@ export class VehicleManufacturerService {
         return Object.assign(vehicleManufacturer, { deletedAt: null });
       }
       throw new BadRequestException(
-        `Drone manufacturer ${createVehicleManufacturerDto.name} already exists`
+        `Vehicle manufacturer ${createVehicleManufacturerDto.name} already exists`
       );
     }
 

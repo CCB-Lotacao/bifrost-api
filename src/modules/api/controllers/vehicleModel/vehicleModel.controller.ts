@@ -20,6 +20,8 @@ import {
 import { DefaultHeaders } from "../../decorators/defaultHeaders.decorator";
 import { VehicleModelService } from "../../services";
 import { CreateVehicleModelDto } from "../../dtos";
+import { Permission } from "../../../../domain/enums";
+import { Auth } from "../../decorators";
 
 @Controller("vehicle-models")
 @ApiTags("Vehicle Model")
@@ -30,6 +32,7 @@ export class VehicleModelController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
+  @Auth(Permission.ReadVehicle)
   public find() {
     return this.vehicleModelService.find();
   }
@@ -37,6 +40,7 @@ export class VehicleModelController {
   @Get(":vehicleModelId")
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
+  @Auth(Permission.ReadVehicle)
   public findOne(@Param("vehicleModelId") vehicleModelId: string) {
     return this.vehicleModelService.findOne(vehicleModelId);
   }
@@ -46,6 +50,7 @@ export class VehicleModelController {
   @ApiCreatedResponse()
   @ApiBadGatewayResponse()
   @ApiUnprocessableEntityResponse()
+  @Auth(Permission.WriteVehicle)
   public create(@Body() createVehicleModelDto: CreateVehicleModelDto) {
     return this.vehicleModelService.create(createVehicleModelDto);
   }
@@ -54,6 +59,7 @@ export class VehicleModelController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse()
   @ApiNotFoundResponse()
+  @Auth(Permission.WriteVehicle)
   public delete(@Param("vehicleModelId") vehicleModelId: string) {
     return this.vehicleModelService.delete(vehicleModelId);
   }

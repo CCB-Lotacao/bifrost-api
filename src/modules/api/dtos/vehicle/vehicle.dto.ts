@@ -18,7 +18,7 @@ export class VehicleDto {
 
   @AutoMap()
   @ApiProperty({ required: true })
-  public readonly vehicleType!: VehicleType;
+  public readonly type!: VehicleType;
 
   @AutoMap()
   @ApiProperty({ required: true })

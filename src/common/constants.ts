@@ -5,7 +5,17 @@ export const KnownHeaders = {
 };
 
 export const PermissionByRole = {
-  [UserRole.SystemAdmin]: [Permission.WriteUser, Permission.ReadUser],
-  [UserRole.Assistant]: [Permission.WriteUser, Permission.ReadUser],
-  [UserRole.Brotherhood]: [Permission.ReadUser],
+  [UserRole.SystemAdmin]: [
+    Permission.WriteUser,
+    Permission.ReadUser,
+    Permission.WriteVehicle,
+    Permission.ReadVehicle,
+  ],
+  [UserRole.Assistant]: [
+    Permission.WriteUser,
+    Permission.ReadUser,
+    Permission.ReadVehicle,
+    Permission.WriteVehicle,
+  ],
+  [UserRole.Brotherhood]: [Permission.ReadUser, Permission.ReadVehicle],
 };

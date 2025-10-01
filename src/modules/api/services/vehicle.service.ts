@@ -12,7 +12,6 @@ import {
   CreateVehicleDto,
   UpdateVehicleDto,
 } from "../dtos";
-import { InjectRepository } from "@nestjs/typeorm";
 import { EntityNotFoundError, Equal } from "typeorm";
 import { VehicleRepository } from "../../database/repositories";
 import { Vehicle, VehicleModel } from "../../../domain/entities";
@@ -20,10 +19,7 @@ import { removeUndefinedFields } from "../../../common/utills";
 
 @Injectable()
 export class VehicleService {
-  constructor(
-    @InjectRepository(VehicleRepository)
-    private readonly vehicleRepository: VehicleRepository
-  ) {}
+  constructor(private readonly vehicleRepository: VehicleRepository) {}
 
   public async findOne(id: string, withDeleted = false): Promise<Vehicle> {
     try {
@@ -90,13 +86,16 @@ export class VehicleService {
       Vehicle.create({
         model,
         name: createVehicleDto.name,
-        vehicleType: createVehicleDto.vehicleType,
+        type: createVehicleDto.type,
       })
     );
   }
 
-  public async update(updateVehicleDto: UpdateVehicleDto): Promise<Vehicle> {
-    const { vehicleId, ...updateVehicleData } = updateVehicleDto;
+  public async update(
+    vehicleId: string,
+    updateVehicleDto: UpdateVehicleDto
+  ): Promise<Vehicle> {
+    const { ...updateVehicleData } = updateVehicleDto;
     const vehicle = await Vehicle.findOne({
       where: { id: vehicleId },
     });

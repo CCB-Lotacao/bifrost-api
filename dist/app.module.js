@@ -14,10 +14,8 @@ const classes_1 = require("@automapper/classes");
 const nestjs_1 = require("@automapper/nestjs");
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
-const typeorm_1 = require("@nestjs/typeorm");
-const configuration_1 = __importDefault(require("./config/configuration"));
 const modules_1 = require("./modules");
-const entities_1 = require("./domain/entities");
+const configuration_1 = __importDefault(require("./config/configuration"));
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -25,22 +23,8 @@ exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({ isGlobal: true, load: [configuration_1.default] }),
-            typeorm_1.TypeOrmModule.forRootAsync({
-                imports: [config_1.ConfigModule],
-                useFactory: (configService) => ({
-                    type: "mysql",
-                    host: configService.get("database.host"),
-                    port: configService.get("database.port"),
-                    username: configService.get("database.username"),
-                    password: configService.get("database.password"),
-                    database: configService.get("database.database"),
-                    entities: [entities_1.User, entities_1.Vehicle, entities_1.VehicleModel, entities_1.VehicleManufacturer],
-                    synchronize: true,
-                    logging: false,
-                }),
-                inject: [config_1.ConfigService],
-            }),
             nestjs_1.AutomapperModule.forRoot({ strategyInitializer: (0, classes_1.classes)() }),
+            modules_1.DatabaseModule,
             modules_1.ApiModule,
         ],
     })

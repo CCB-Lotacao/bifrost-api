@@ -36,7 +36,7 @@ export class Vehicle extends BaseEntity {
     type: "enum",
     enum: VehicleType,
   })
-  public vehicleType!: VehicleType;
+  public type!: VehicleType;
 
   @AutoMap()
   @CreateDateColumn({ type: "timestamp" })

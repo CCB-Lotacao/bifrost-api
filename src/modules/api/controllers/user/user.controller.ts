@@ -23,9 +23,11 @@ import { Permission } from "../../../../domain/enums";
 import { UserService } from "../../services";
 import { CreateUserDto, UpdateUserDto } from "../../dtos";
 import { Auth } from "../../decorators";
+import { DefaultHeaders } from "../../decorators/defaultHeaders.decorator";
 
 @Controller("users")
 @ApiTags("User")
+@DefaultHeaders()
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
@@ -73,6 +75,7 @@ export class UserController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse()
   @ApiNotFoundResponse()
+  @Auth(Permission.WriteUser)
   public delete(@Param("userId") userId: string) {
     return this.userService.delete(userId);
   }

@@ -1,17 +1,32 @@
-import { TypeOrmModuleOptions } from "@nestjs/typeorm";
+import path from "path";
+import { Injectable } from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
+import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from "@nestjs/typeorm";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies";
+import { Config } from "../../config/configuration";
 
-export const getDatabaseConfig = (
-  configService: ConfigService
-): TypeOrmModuleOptions => ({
-  type: "mysql",
-  host: configService.get<string>("DB_HOST", "localhost"),
-  port: configService.get<number>("DB_PORT", 3306),
-  username: configService.get<string>("DB_USERNAME", "root"),
-  password: configService.get<string>("DB_PASSWORD", "root"),
-  database: configService.get<string>("DB_DATABASE", "ccb_lotacao"),
-  entities: [__dirname + "/../**/*.entity{.ts,.js}"],
-  synchronize: configService.get<string>("NODE_ENV") === "development",
-  logging: false,
-  autoLoadEntities: true,
-});
+@Injectable()
+export class DatabaseConfiguration implements TypeOrmOptionsFactory {
+  constructor(public readonly config: ConfigService) {}
+
+  public createTypeOrmOptions(): TypeOrmModuleOptions {
+    const environment = this.config.get<string>(Config.AppEnvironment);
+    const isDevelopment = environment === "development";
+
+    return {
+      logging: false,
+      type: "mysql",
+      autoLoadEntities: true,
+      synchronize: isDevelopment,
+      migrationsRun: !isDevelopment,
+      metadataTableName: "typeorm_metadata",
+      migrationsTableName: "typeorm_migration_history",
+      migrations: [path.join(__dirname, "migrations", "*{.ts,.js}")],
+      namingStrategy: new SnakeNamingStrategy(),
+      host: this.config.get<string>("DB_HOST"),
+      username: this.config.get<string>("DB_USERNAME"),
+      password: this.config.get<string>("DB_PASSWORD"),
+      database: this.config.get<string>("DB_DATABASE"),
+    };
+  }
+}

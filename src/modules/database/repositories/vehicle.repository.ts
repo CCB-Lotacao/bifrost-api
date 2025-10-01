@@ -22,9 +22,6 @@ export class VehicleRepository extends BaseRepository<Vehicle, FindVehicleDto> {
         ...(findVehicleDto.name && {
           name: ILike(`%${findVehicleDto.name}%`),
         }),
-        ...(findVehicleDto.modelId && {
-          model: { id: Equal(findVehicleDto.modelId) },
-        }),
       },
       order: this.makeSort(orderBy),
       withDeleted: true,

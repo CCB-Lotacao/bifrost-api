@@ -16,5 +16,5 @@ export class FindVehicleDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsEnum(VehicleType)
-  public readonly vehicleType?: VehicleType;
+  public readonly type?: VehicleType;
 }

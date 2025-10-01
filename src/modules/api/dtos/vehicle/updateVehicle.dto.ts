@@ -33,5 +33,5 @@ export class UpdateVehicleDto implements Partial<CreateVehicleDto> {
   @ApiProperty({ required: false })
   @IsNotEmpty()
   @IsEnum(VehicleType)
-  public readonly vehicleType?: VehicleType;
+  public readonly type?: VehicleType;
 }

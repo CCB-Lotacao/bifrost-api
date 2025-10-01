@@ -23,11 +23,11 @@ import { Auth } from "../../decorators";
 import { DefaultHeaders } from "../../decorators/defaultHeaders.decorator";
 import { CreateVehicleManufacturerDto } from "../../dtos";
 import { VehicleManufacturerService } from "../../services";
+import { Permission } from "../../../../domain/enums";
 
 @Controller("vehicle-manufacturer")
 @ApiTags("Vehicle Manufacturer")
 @DefaultHeaders()
-@Auth()
 export class VehicleManufacturerController {
   constructor(
     private readonly vehicleManufacturerService: VehicleManufacturerService
@@ -36,6 +36,7 @@ export class VehicleManufacturerController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
+  @Auth(Permission.ReadVehicle)
   public find() {
     return this.vehicleManufacturerService.find();
   }
@@ -43,6 +44,7 @@ export class VehicleManufacturerController {
   @Get(":vehicleManufacturerId")
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
+  @Auth(Permission.ReadVehicle)
   public findOne(
     @Param("vehicleManufacturerId") vehicleManufacturerId: string
   ) {
@@ -54,6 +56,7 @@ export class VehicleManufacturerController {
   @ApiCreatedResponse()
   @ApiConflictResponse()
   @ApiUnprocessableEntityResponse()
+  @Auth(Permission.WriteVehicle)
   @ApiBody({
     schema: {
       type: "object",
@@ -75,6 +78,7 @@ export class VehicleManufacturerController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse()
   @ApiNotFoundResponse()
+  @Auth(Permission.WriteVehicle)
   public delete(@Param("vehicleManufacturerId") vehicleManufacturerId: string) {
     return this.vehicleManufacturerService.delete(vehicleManufacturerId);
   }

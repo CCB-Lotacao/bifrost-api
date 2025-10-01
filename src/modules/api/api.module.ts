@@ -10,12 +10,25 @@ import { VehicleManufacturerController } from "./controllers/vehicleManufacturer
 import { VehicleModelService } from "./services/vehicleModel.service";
 import { VehicleModelController } from "./controllers/vehicleModel/vehicleModel.controller";
 import { VehicleController } from "./controllers/vehicle/vehicle.controller";
+import {
+  User,
+  Vehicle,
+  VehicleManufacturer,
+  VehicleModel,
+} from "../../domain/entities";
 import { UserRepository, VehicleRepository } from "../database/repositories";
 
-const REPOSITORIES = [UserRepository, VehicleRepository];
-
 @Module({
-  imports: [TypeOrmModule.forFeature(REPOSITORIES)],
+  imports: [
+    TypeOrmModule.forFeature([
+      User,
+      Vehicle,
+      VehicleModel,
+      VehicleManufacturer,
+      UserRepository,
+      VehicleRepository,
+    ]),
+  ],
   controllers: [
     UserController,
     VehicleManufacturerController,
@@ -27,8 +40,10 @@ const REPOSITORIES = [UserRepository, VehicleRepository];
     VehicleManufacturerService,
     VehicleModelService,
     VehicleService,
-    ...REPOSITORIES,
+    UserRepository,
+    VehicleRepository,
   ],
+  exports: [TypeOrmModule],
 })
 export class ApiModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

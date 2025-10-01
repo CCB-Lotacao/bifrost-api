@@ -19,6 +19,7 @@ const enums_1 = require("../../../../domain/enums");
 const services_1 = require("../../services");
 const dtos_1 = require("../../dtos");
 const decorators_1 = require("../../decorators");
+const defaultHeaders_decorator_1 = require("../../decorators/defaultHeaders.decorator");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -90,6 +91,7 @@ __decorate([
     (0, common_1.HttpCode)(common_1.HttpStatus.NO_CONTENT),
     (0, swagger_1.ApiNoContentResponse)(),
     (0, swagger_1.ApiNotFoundResponse)(),
+    (0, decorators_1.Auth)(enums_1.Permission.WriteUser),
     __param(0, (0, common_1.Param)("userId")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -98,5 +100,6 @@ __decorate([
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)("users"),
     (0, swagger_1.ApiTags)("User"),
+    (0, defaultHeaders_decorator_1.DefaultHeaders)(),
     __metadata("design:paramtypes", [services_1.UserService])
 ], UserController);

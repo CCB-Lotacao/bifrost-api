@@ -15,8 +15,8 @@ const vehicleManufacturer_controller_1 = require("./controllers/vehicleManufactu
 const vehicleModel_service_1 = require("./services/vehicleModel.service");
 const vehicleModel_controller_1 = require("./controllers/vehicleModel/vehicleModel.controller");
 const vehicle_controller_1 = require("./controllers/vehicle/vehicle.controller");
+const entities_1 = require("../../domain/entities");
 const repositories_1 = require("../database/repositories");
-const REPOSITORIES = [repositories_1.UserRepository, repositories_1.VehicleRepository];
 let ApiModule = class ApiModule {
     configure(consumer) {
         consumer;
@@ -25,7 +25,16 @@ let ApiModule = class ApiModule {
 exports.ApiModule = ApiModule;
 exports.ApiModule = ApiModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature(REPOSITORIES)],
+        imports: [
+            typeorm_1.TypeOrmModule.forFeature([
+                entities_1.User,
+                entities_1.Vehicle,
+                entities_1.VehicleModel,
+                entities_1.VehicleManufacturer,
+                repositories_1.UserRepository,
+                repositories_1.VehicleRepository,
+            ]),
+        ],
         controllers: [
             controllers_1.UserController,
             vehicleManufacturer_controller_1.VehicleManufacturerController,
@@ -37,7 +46,9 @@ exports.ApiModule = ApiModule = __decorate([
             services_1.VehicleManufacturerService,
             vehicleModel_service_1.VehicleModelService,
             services_1.VehicleService,
-            ...REPOSITORIES,
+            repositories_1.UserRepository,
+            repositories_1.VehicleRepository,
         ],
+        exports: [typeorm_1.TypeOrmModule],
     })
 ], ApiModule);

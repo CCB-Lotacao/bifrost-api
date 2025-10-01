@@ -17,5 +17,5 @@ export class CreateVehicleDto {
   @AutoMap()
   @ApiProperty({ required: true })
   @IsEnum(VehicleType)
-  public readonly vehicleType!: VehicleType;
+  public readonly type!: VehicleType;
 }

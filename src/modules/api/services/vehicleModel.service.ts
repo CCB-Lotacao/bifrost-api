@@ -1,6 +1,7 @@
-import { Equal } from "typeorm";
+import { EntityNotFoundError, Equal } from "typeorm";
 import {
   BadRequestException,
+  InternalServerErrorException,
   NotFoundException,
   UnprocessableEntityException,
 } from "@nestjs/common";
@@ -15,7 +16,15 @@ export class VehicleModelService {
   }
 
   public async findOne(id: string): Promise<VehicleModel> {
-    return VehicleModel.findOneByOrFail({ id });
+    try {
+      return await VehicleModel.findOneByOrFail({ id: Equal(id) });
+    } catch (error) {
+      if (error instanceof EntityNotFoundError) {
+        throw new NotFoundException(`Vehicle Model ${id} not found`);
+      }
+
+      throw new InternalServerErrorException(error);
+    }
   }
 
   public async create(
