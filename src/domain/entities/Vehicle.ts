@@ -39,14 +39,14 @@ export class Vehicle extends BaseEntity {
   public type!: VehicleType;
 
   @AutoMap()
-  @CreateDateColumn({ type: "timestamp" })
+  @CreateDateColumn({ type: "timestamptz" })
   public readonly createdAt!: Date;
 
   @AutoMap()
-  @UpdateDateColumn({ type: "timestamp" })
+  @UpdateDateColumn({ type: "timestamptz" })
   public readonly updatedAt!: Date;
 
   @AutoMap()
-  @DeleteDateColumn({ type: "timestamp", nullable: true })
+  @DeleteDateColumn({ type: "timestamptz", nullable: true })
   public readonly deletedAt?: Date;
 }

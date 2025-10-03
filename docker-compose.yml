@@ -1,63 +1,27 @@
 services:
-  # Banco de dados MySQL
-  mysql:
-    image: mysql:8.0
-    container_name: bifrost-mysql
+  postgres:
+    image: postgres:16
+    container_name: bifrost-postgres
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: ccb_lotacao
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: ccb_lotacao
     ports:
-      - "3307:3306"
+      - "5432:5432"
     volumes:
-      - mysql_data:/var/lib/mysql
+      - postgres_data:/var/lib/postgresql/data
     networks:
       - bifrost-network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-proot"]
-      timeout: 20s
-      retries: 10
-
-  # Aplicação NestJS
-  app:
-    build: .
-    container_name: bifrost-api
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    environment:
-      NODE_ENV: production
-      DB_HOST: mysql
-      DB_PORT: 3306
-      DB_USERNAME: root
-      DB_PASSWORD: root
-      DB_DATABASE: ccb_lotacao
-    depends_on:
-      mysql:
-        condition: service_healthy
-    networks:
-      - bifrost-network
-
-  # phpMyAdmin (opcional - para gerenciar o banco)
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: bifrost-phpmyadmin
-    restart: unless-stopped
-    ports:
-      - "8080:80"
-    environment:
-      PMA_HOST: mysql
-      PMA_USER: root
-      PMA_PASSWORD: root
-    depends_on:
-      - mysql
-    networks:
-      - bifrost-network
+      test: ["CMD-SHELL", "pg_isready -U root -d ccb_lotacao"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 volumes:
-  mysql_data:
+  postgres_data:
 
 networks:
   bifrost-network:
     driver: bridge
-
