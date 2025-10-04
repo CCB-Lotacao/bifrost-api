@@ -5,3 +5,7 @@ export * from "./User";
 export * from "./Vehicle";
 export * from "./VehicleModel";
 export * from "./VehicleManufacturer";
+
+// identity/authorization
+export * from "./Identity";
+export * from "./Authorization";

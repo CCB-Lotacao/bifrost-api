@@ -23,3 +23,6 @@ export * from "./vehicleModel/findVehicleModel.dto";
 export * from "./vehicleManufacturer/vehicleManufacturer.dto";
 export * from "./vehicleManufacturer/findVehicleManufacturer.dto";
 export * from "./vehicleManufacturer/createVehicleManufacturer.dto";
+
+// identity
+export * from "./identity/createIdentity.dto";
