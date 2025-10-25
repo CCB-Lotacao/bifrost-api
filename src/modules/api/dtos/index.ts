@@ -7,6 +7,7 @@ export * from "./user/findUser.dto";
 export * from "./user/user.dto";
 export * from "./user/createUser.dto";
 export * from "./user/updateUser.dto";
+export * from "./user/loginUser.dto";
 
 // vehicle
 export * from "./vehicle/createVehicle.dto";
@@ -23,6 +24,3 @@ export * from "./vehicleModel/findVehicleModel.dto";
 export * from "./vehicleManufacturer/vehicleManufacturer.dto";
 export * from "./vehicleManufacturer/findVehicleManufacturer.dto";
 export * from "./vehicleManufacturer/createVehicleManufacturer.dto";
-
-// identity
-export * from "./identity/createIdentity.dto";

@@ -21,7 +21,7 @@ import {
 
 import { Permission } from "../../../../domain/enums";
 import { UserService } from "../../services";
-import { CreateUserDto, UpdateUserDto } from "../../dtos";
+import { CreateUserDto, UpdateUserDto, LoginUserDto } from "../../dtos";
 import { Auth } from "../../decorators";
 import { DefaultHeaders } from "../../decorators/defaultHeaders.decorator";
 
@@ -78,5 +78,16 @@ export class UserController {
   @Auth(Permission.WriteUser)
   public delete(@Param("userId") userId: string) {
     return this.userService.delete(userId);
+  }
+
+  @Post("login")
+  @HttpCode(HttpStatus.OK)
+  @ApiOkResponse()
+  @ApiNotFoundResponse()
+  public async login(@Body() loginUserDto: LoginUserDto) {
+    return this.userService.authenticate(
+      loginUserDto.email,
+      loginUserDto.password
+    );
   }
 }

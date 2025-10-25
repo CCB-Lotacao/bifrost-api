@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { AutoMap } from "@automapper/classes";
-import { UserRole } from "../enums";
+import { IdentityProvider, UserRole } from "../enums";
 
 @Entity()
 export class User extends BaseEntity {
@@ -43,6 +43,17 @@ export class User extends BaseEntity {
     default: UserRole.Assistant,
   })
   public role!: UserRole;
+
+  @AutoMap()
+  @Column()
+  public readonly identityProvider!: IdentityProvider;
+
+  @AutoMap()
+  @Column()
+  public readonly identityId!: string;
+
+  @Column()
+  public password!: string;
 
   @AutoMap()
   @CreateDateColumn({ type: "timestamptz" })

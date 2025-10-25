@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  MinLength,
 } from "class-validator";
 import { UserRole } from "../../../../domain/enums";
 
@@ -45,4 +46,10 @@ export class CreateUserDto {
   @IsNotEmpty()
   @ApiProperty({ enum: UserRole, required: true })
   public role!: UserRole;
+
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(6)
+  @ApiProperty({ required: true, example: "password123", minLength: 6 })
+  public readonly password!: string;
 }

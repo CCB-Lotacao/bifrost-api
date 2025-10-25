@@ -3,14 +3,20 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
+  UnauthorizedException,
 } from "@nestjs/common";
+import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
 
 import { User } from "../../../domain/entities";
 import { EntityNotFoundError, Equal, ILike } from "typeorm";
 import { CreateUserDto, UpdateUserDto } from "../dtos";
+import { IdentityProvider } from "../../../domain/enums";
 
 @Injectable()
 export class UserService {
+  private readonly JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
+  private readonly SALT_ROUNDS = 10;
   public async find(): Promise<User[]> {
     return await User.find();
   }
@@ -40,6 +46,16 @@ export class UserService {
       );
     }
 
+    if (!createUserDto.password) {
+      throw new BadRequestException(`Password field cannot be null`);
+    }
+
+    // Hash da senha
+    const hashedPassword = await bcrypt.hash(
+      createUserDto.password,
+      this.SALT_ROUNDS
+    );
+
     const user = await User.save(
       User.create({
         email: lowerCaseEmail,
@@ -48,6 +64,9 @@ export class UserService {
         role: createUserDto.role,
         state: createUserDto.state,
         city: createUserDto.city,
+        password: hashedPassword,
+        identityProvider: IdentityProvider.Local,
+        identityId: lowerCaseEmail, // Usando email como identityId para autenticação local
       })
     );
 
@@ -76,5 +95,42 @@ export class UserService {
 
     await User.softRemove([user]);
     return;
+  }
+
+  public async authenticate(
+    email: string,
+    password: string
+  ): Promise<{ user: User; token: string }> {
+    const user = await User.findOne({
+      where: { email: ILike(email.toLowerCase()) },
+    });
+
+    if (!user) {
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
+      throw new UnauthorizedException("Invalid credentials");
+    }
+
+    const token = jwt.sign(
+      {
+        sub: user.id,
+        email: user.email,
+        role: user.role,
+        name: user.name,
+      },
+      this.JWT_SECRET,
+      { expiresIn: "24h" }
+    );
+
+    return { user, token };
+  }
+
+  public async findByEmail(email: string): Promise<User | null> {
+    return await User.findOne({
+      where: { email: ILike(email.toLowerCase()) },
+    });
   }
 }

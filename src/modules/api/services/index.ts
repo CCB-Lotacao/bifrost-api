@@ -9,6 +9,3 @@ export * from "./vehicleModel.service";
 
 // vehicle
 export * from "./vehicle.service";
-
-// identity
-export * from "./identityProvider.service";
