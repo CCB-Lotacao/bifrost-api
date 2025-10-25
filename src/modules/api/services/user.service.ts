@@ -28,7 +28,6 @@ export class UserService {
       if (error instanceof EntityNotFoundError) {
         throw new NotFoundException(`User ${id} not found`);
       }
-
       throw new InternalServerErrorException(error);
     }
   }
@@ -50,7 +49,6 @@ export class UserService {
       throw new BadRequestException(`Password field cannot be null`);
     }
 
-    // Hash da senha
     const hashedPassword = await bcrypt.hash(
       createUserDto.password,
       this.SALT_ROUNDS
@@ -66,7 +64,7 @@ export class UserService {
         city: createUserDto.city,
         password: hashedPassword,
         identityProvider: IdentityProvider.Local,
-        identityId: lowerCaseEmail, // Usando email como identityId para autenticação local
+        identityId: lowerCaseEmail,
       })
     );
 
@@ -126,11 +124,5 @@ export class UserService {
     );
 
     return { user, token };
-  }
-
-  public async findByEmail(email: string): Promise<User | null> {
-    return await User.findOne({
-      where: { email: ILike(email.toLowerCase()) },
-    });
   }
 }
