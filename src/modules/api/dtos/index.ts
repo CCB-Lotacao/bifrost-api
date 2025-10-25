@@ -24,3 +24,9 @@ export * from "./vehicleModel/findVehicleModel.dto";
 export * from "./vehicleManufacturer/vehicleManufacturer.dto";
 export * from "./vehicleManufacturer/findVehicleManufacturer.dto";
 export * from "./vehicleManufacturer/createVehicleManufacturer.dto";
+
+// common
+export * from "./common/common.dto";
+export * from "./common/createCommon.dto";
+export * from "./common/findCommon.dto";
+export * from "./common/updateCommon.dto";

@@ -1,5 +1,5 @@
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsOptional, IsString, IsUUID } from "class-validator";
 
 export class FindUserDto {
   @ApiProperty({ required: false, nullable: true })
@@ -26,4 +26,9 @@ export class FindUserDto {
   @IsOptional()
   @IsString()
   public readonly city?: string;
+
+  @ApiProperty({ required: false, nullable: true })
+  @IsOptional()
+  @IsUUID()
+  public readonly commonId?: string;
 }

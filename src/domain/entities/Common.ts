@@ -4,18 +4,15 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
-  ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
-  Unique,
   UpdateDateColumn,
 } from "typeorm";
 import { AutoMap } from "@automapper/classes";
-import { VehicleModel } from "./VehicleModel";
-import { VehicleType } from "../enums";
+import { User } from "./User";
 
 @Entity()
-@Unique(["model"])
-export class Vehicle extends BaseEntity {
+export class Common extends BaseEntity {
   @AutoMap()
   @PrimaryGeneratedColumn("uuid")
   public readonly id!: string;
@@ -24,18 +21,19 @@ export class Vehicle extends BaseEntity {
   @Column()
   public readonly name!: string;
 
-  @AutoMap(() => VehicleModel)
-  @ManyToOne(() => VehicleModel, (model) => model.vehicles, {
-    nullable: false,
-  })
-  public readonly model!: VehicleModel;
+  @AutoMap()
+  @Column({ nullable: true })
+  public readonly state?: string;
 
   @AutoMap()
-  @Column({
-    type: "enum",
-    enum: VehicleType,
+  @Column({ nullable: true })
+  public readonly city?: string;
+
+  @AutoMap()
+  @OneToMany(() => User, (user) => user.common, {
+    nullable: false,
   })
-  public type!: VehicleType;
+  public readonly user!: User[];
 
   @AutoMap()
   @CreateDateColumn({ type: "timestamptz" })

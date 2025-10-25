@@ -1,7 +1,8 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserController } from "./controllers";
+import { CommonController, UserController } from "./controllers";
 import {
+  CommonService,
   UserService,
   VehicleManufacturerService,
   VehicleService,
@@ -11,6 +12,7 @@ import { VehicleModelService } from "./services/vehicleModel.service";
 import { VehicleModelController } from "./controllers/vehicleModel/vehicleModel.controller";
 import { VehicleController } from "./controllers/vehicle/vehicle.controller";
 import {
+  Common,
   User,
   Vehicle,
   VehicleManufacturer,
@@ -27,6 +29,7 @@ import { UserRepository, VehicleRepository } from "../database/repositories";
       VehicleManufacturer,
       UserRepository,
       VehicleRepository,
+      Common,
     ]),
   ],
   controllers: [
@@ -34,12 +37,14 @@ import { UserRepository, VehicleRepository } from "../database/repositories";
     VehicleManufacturerController,
     VehicleModelController,
     VehicleController,
+    CommonController,
   ],
   providers: [
     UserService,
     VehicleManufacturerService,
     VehicleModelService,
     VehicleService,
+    CommonService,
     UserRepository,
     VehicleRepository,
   ],

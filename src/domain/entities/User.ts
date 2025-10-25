@@ -4,11 +4,13 @@ import {
   CreateDateColumn,
   DeleteDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { AutoMap } from "@automapper/classes";
 import { IdentityProvider, UserRole } from "../enums";
+import { Common } from ".";
 
 @Entity()
 export class User extends BaseEntity {
@@ -52,8 +54,13 @@ export class User extends BaseEntity {
   @Column()
   public readonly identityId!: string;
 
+  @AutoMap()
   @Column()
   public password!: string;
+
+  @AutoMap()
+  @ManyToOne(() => Common, (common) => common.user, { nullable: true })
+  public readonly common?: Common;
 
   @AutoMap()
   @CreateDateColumn({ type: "timestamptz" })

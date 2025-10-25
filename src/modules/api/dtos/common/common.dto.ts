@@ -2,16 +2,14 @@ import { AutoMap } from "@automapper/classes";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsDate,
-  IsEnum,
   IsNotEmpty,
   IsOptional,
   IsString,
   IsUUID,
 } from "class-validator";
-import { UserRole } from "../../../../domain/enums";
-import { CommonDto } from "..";
+import { UserDto } from "../user/user.dto";
 
-export class UserDto {
+export class CommonDto {
   @AutoMap()
   @IsUUID()
   @IsNotEmpty()
@@ -25,18 +23,6 @@ export class UserDto {
   public readonly name!: string;
 
   @AutoMap()
-  @IsString()
-  @IsNotEmpty()
-  @ApiProperty({ required: true })
-  public readonly email!: string;
-
-  @AutoMap()
-  @IsString()
-  @IsOptional()
-  @ApiProperty({ required: false })
-  public readonly phone?: string;
-
-  @AutoMap()
   @IsOptional()
   @ApiProperty({ required: false })
   public readonly state?: string;
@@ -46,15 +32,9 @@ export class UserDto {
   @ApiProperty({ required: false })
   public readonly city?: string;
 
-  @AutoMap()
-  @IsEnum(UserRole)
-  @IsNotEmpty()
-  @ApiProperty({ required: true, default: UserRole.Brotherhood })
-  public readonly role!: UserRole;
-
-  @AutoMap(() => CommonDto)
-  @ApiProperty({ required: false })
-  public readonly common?: CommonDto;
+  @AutoMap(() => UserDto)
+  @ApiProperty({ required: true })
+  public readonly user!: UserDto;
 
   @AutoMap()
   @IsDate()

@@ -9,3 +9,6 @@ export * from "./vehicleModel/vehicleModel.controller";
 
 // vehicle
 export * from "./vehicle/vehicle.controller";
+
+// common
+export * from "./common/common.controller";

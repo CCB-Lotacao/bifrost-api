@@ -104,12 +104,12 @@ export class UserService {
     });
 
     if (!user) {
-      throw new UnauthorizedException("Invalid credentials");
+      throw new UnauthorizedException("Email is invalid credentials");
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
     if (!isPasswordValid) {
-      throw new UnauthorizedException("Invalid credentials");
+      throw new UnauthorizedException("Password is invalid credentials");
     }
 
     const token = jwt.sign(
@@ -120,7 +120,7 @@ export class UserService {
         name: user.name,
       },
       this.JWT_SECRET,
-      { expiresIn: "24h" }
+      { expiresIn: 900 }
     );
 
     return { user, token };

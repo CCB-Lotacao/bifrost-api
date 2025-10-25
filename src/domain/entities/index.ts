@@ -9,3 +9,6 @@ export * from "./VehicleManufacturer";
 // identity/authorization
 export * from "./Identity";
 export * from "./Authorization";
+
+// common
+export * from "./Common";
