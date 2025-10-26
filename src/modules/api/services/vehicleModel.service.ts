@@ -59,7 +59,7 @@ export class VehicleModelService {
   }
 
   public async delete(id: string): Promise<void> {
-    const model = await this.findOne(id);
+    const model = await VehicleModel.findOneBy({ id });
     if (!model) throw new NotFoundException(`Vehicle model ${id} not found`);
 
     await VehicleModel.softRemove([model]);

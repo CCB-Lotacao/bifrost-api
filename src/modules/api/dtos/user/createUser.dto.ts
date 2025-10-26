@@ -6,6 +6,7 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
+  IsUUID,
   MinLength,
 } from "class-validator";
 import { UserRole } from "../../../../domain/enums";

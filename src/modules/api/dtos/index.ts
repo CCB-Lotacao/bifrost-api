@@ -8,6 +8,7 @@ export * from "./user/user.dto";
 export * from "./user/createUser.dto";
 export * from "./user/updateUser.dto";
 export * from "./user/loginUser.dto";
+export * from "./user/updateUserCommon.dto";
 
 // vehicle
 export * from "./vehicle/createVehicle.dto";

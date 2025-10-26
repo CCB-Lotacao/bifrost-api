@@ -7,6 +7,7 @@ import {
 import { Common } from "../../../domain/entities";
 import { EntityNotFoundError, Equal } from "typeorm";
 import { CreateCommonDto, UpdateCommonDto } from "../dtos";
+import { removeUndefinedFields } from "../../../common/utills";
 
 @Injectable()
 export class CommonService {
@@ -21,7 +22,7 @@ export class CommonService {
       if (error instanceof EntityNotFoundError) {
         throw new NotFoundException(`Common ${id} not found`);
       }
-      throw new InternalServerErrorException(error);
+      throw new InternalServerErrorException(`Incorrect format`);
     }
   }
 
@@ -38,28 +39,26 @@ export class CommonService {
   }
 
   public async update(
-    id: string,
+    commonId: string,
     updateCommonDto: UpdateCommonDto
   ): Promise<Common> {
-    try {
-      const common = await Common.findOneBy({ id });
-      if (!common) {
-        throw new NotFoundException(`Common ID ${id} not found`);
-      }
-      Object.assign(common, updateCommonDto);
-      return await Common.save(common);
-    } catch (error) {
-      console.error("Error updating common:", error);
-      throw new InternalServerErrorException(
-        "An error occurred while updating the common. Please try again later."
-      );
+    const { ...updateCommonData } = updateCommonDto;
+    const common = await Common.findOne({
+      where: { id: commonId },
+    });
+
+    if (!common) {
+      throw new NotFoundException(`Common ${commonId} not found`);
     }
+
+    const updateData = removeUndefinedFields(updateCommonData);
+
+    return Common.save(Common.create(Object.assign(common, updateData)));
   }
 
   public async delete(id: string): Promise<void> {
-    const common = await this.findOne(id);
+    const common = await Common.findOneBy({ id });
     if (!common) throw new NotFoundException(`Commoner ${id} not found`);
-
     await Common.softRemove([common]);
     return;
   }

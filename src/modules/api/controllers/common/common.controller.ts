@@ -34,7 +34,7 @@ export class CommonController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
-  @Auth(Permission.ReadUser)
+  @Auth(Permission.ReadCommon)
   public find() {
     return this.commonService.find();
   }
@@ -43,7 +43,7 @@ export class CommonController {
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
   @ApiNotFoundResponse()
-  @Auth(Permission.ReadUser)
+  @Auth(Permission.ReadCommon)
   public findOne(@Param("commonId") commonId: string) {
     return this.commonService.findOne(commonId);
   }
@@ -53,7 +53,7 @@ export class CommonController {
   @ApiCreatedResponse()
   @ApiBadGatewayResponse()
   @ApiUnprocessableEntityResponse()
-  @Auth(Permission.WriteUser)
+  @Auth(Permission.WriteCommon)
   public create(@Body() createCommonDto: CreateCommonDto) {
     return this.commonService.create(createCommonDto);
   }
@@ -63,7 +63,7 @@ export class CommonController {
   @ApiCreatedResponse()
   @ApiBadGatewayResponse()
   @ApiUnprocessableEntityResponse()
-  @Auth(Permission.WriteUser)
+  @Auth(Permission.WriteCommon)
   public update(
     @Param("commonId") commonId: string,
     @Body() updateCommonDto: UpdateCommonDto
@@ -75,7 +75,7 @@ export class CommonController {
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse()
   @ApiNotFoundResponse()
-  @Auth(Permission.WriteUser)
+  @Auth(Permission.WriteCommon)
   public delete(@Param("commonId") commonId: string) {
     return this.commonService.delete(commonId);
   }

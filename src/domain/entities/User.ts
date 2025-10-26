@@ -60,7 +60,7 @@ export class User extends BaseEntity {
 
   @AutoMap()
   @ManyToOne(() => Common, (common) => common.user, { nullable: true })
-  public readonly common?: Common;
+  public common?: Common;
 
   @AutoMap()
   @CreateDateColumn({ type: "timestamptz" })

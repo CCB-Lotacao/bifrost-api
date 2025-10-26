@@ -40,11 +40,11 @@ import { UserRepository, VehicleRepository } from "../database/repositories";
     CommonController,
   ],
   providers: [
+    CommonService,
     UserService,
     VehicleManufacturerService,
     VehicleModelService,
     VehicleService,
-    CommonService,
     UserRepository,
     VehicleRepository,
   ],

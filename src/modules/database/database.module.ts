@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import {
+  Common,
   User,
   Vehicle,
   VehicleManufacturer,
@@ -21,6 +22,7 @@ import { UserRepository, VehicleRepository } from "./repositories";
       User,
       VehicleManufacturer,
       VehicleModel,
+      Common,
     ]),
   ],
 })

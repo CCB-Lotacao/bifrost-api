@@ -55,9 +55,9 @@ export class VehicleManufacturerService {
   }
 
   public async delete(id: string): Promise<void> {
-    const manufacturer = await this.findOne(id);
+    const manufacturer = await VehicleManufacturer.findOneBy({ id });
     if (!manufacturer)
-      throw new NotFoundException(`Drone manufacturer ${id} not found`);
+      throw new NotFoundException(`Vehicle manufacturer ${id} not found`);
 
     await VehicleManufacturer.softRemove([manufacturer]);
     return;
