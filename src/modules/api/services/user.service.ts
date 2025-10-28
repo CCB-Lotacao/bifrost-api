@@ -107,7 +107,7 @@ export class UserService {
   public async authenticate(
     email: string,
     password: string
-  ): Promise<{ user: User; token: string }> {
+  ): Promise<{ user: User; acessToken: string }> {
     const user = await User.findOne({
       where: { email: ILike(email.toLowerCase()) },
       relations: ["common"],
@@ -122,7 +122,7 @@ export class UserService {
       throw new UnauthorizedException("Password is invalid credentials");
     }
 
-    const token = jwt.sign(
+    const acessToken = jwt.sign(
       {
         sub: user.id,
         email: user.email,
@@ -133,7 +133,7 @@ export class UserService {
       { expiresIn: 900 }
     );
 
-    return { user, token };
+    return { user, acessToken };
   }
 
   public async updateUserCommon(id: string, commonId: string): Promise<User> {

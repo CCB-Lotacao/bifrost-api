@@ -53,7 +53,6 @@ export class AuthGuard implements CanActivate {
     const identity = this.createIdentity(tokenPayload.sub);
     const authorization = new Authorization(identity);
 
-    // Obter role do token
     const userRole = tokenPayload.role as UserRole;
     const permissions = PermissionByRole[userRole] || [];
 
@@ -126,20 +125,20 @@ export class AuthGuard implements CanActivate {
   private async validateToken(request: Request): Promise<any> {
     try {
       const authorization = request.headers.authorization || "";
-      const token = authorization.replace("Bearer ", "");
+      const acessToken = authorization.replace("Bearer ", "");
 
-      if (!token) {
+      if (!acessToken) {
         throw new UnauthorizedException("Authorization header is required");
       }
 
-      return jwt.verify(token, this.JWT_SECRET);
+      return jwt.verify(acessToken, this.JWT_SECRET);
     } catch (error) {
       if (error instanceof jwt.JsonWebTokenError) {
         throw new UnauthorizedException(error.message);
       }
 
       Logger.error(error, "AuthGuard");
-      throw new InternalServerErrorException(`Failed to validate token`);
+      throw new InternalServerErrorException(`Failed to validate acessToken`);
     }
   }
 
