@@ -48,9 +48,13 @@ export class CreateUserDto {
   @ApiProperty({ enum: UserRole, required: true })
   public role!: UserRole;
 
+  @AutoMap()
+  @ApiProperty({ required: false })
+  @IsUUID()
+  public readonly commonId?: string;
+
   @IsString()
   @IsNotEmpty()
-  @MinLength(6)
-  @ApiProperty({ required: true, example: "password123", minLength: 6 })
+  @ApiProperty({ required: true, example: "password123" })
   public readonly password!: string;
 }

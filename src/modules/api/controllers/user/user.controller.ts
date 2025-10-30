@@ -58,7 +58,7 @@ export class UserController {
   @ApiCreatedResponse()
   @ApiBadGatewayResponse()
   @ApiUnprocessableEntityResponse()
-  @Auth(Permission.WriteUser)
+  // @Auth(Permission.WriteUser)
   public create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }

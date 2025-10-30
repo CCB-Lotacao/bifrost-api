@@ -34,7 +34,7 @@ export class CommonController {
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
-  @Auth(Permission.ReadCommon)
+  // @Auth(Permission.ReadCommon)
   public find() {
     return this.commonService.find();
   }
