@@ -1,6 +1,6 @@
 import { AutoMap } from "@automapper/classes";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsEmail, IsEnum, IsOptional, IsString } from "class-validator";
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID } from "class-validator";
 import { UserRole } from "../../../../domain/enums";
 
 export class UpdateUserDto {
@@ -39,4 +39,12 @@ export class UpdateUserDto {
   @IsOptional()
   @ApiProperty({ required: false })
   public readonly role?: UserRole;
+
+  @IsUUID()
+  @IsNotEmpty()
+  @ApiProperty({
+    required: true,
+    example: "123e4567-e89b-12d3-a456-426614174000",
+  })
+  public readonly commonId?: string;
 }

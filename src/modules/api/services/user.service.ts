@@ -47,9 +47,7 @@ export class UserService {
     });
 
     if (existingUser) {
-      throw new BadRequestException(
-        `User with email ${lowerCaseEmail} already exists`
-      );
+      throw new BadRequestException(`User with email already exists`);
     }
 
     if (!createUserDto.password) {
@@ -72,6 +70,7 @@ export class UserService {
         password: hashedPassword,
         identityProvider: IdentityProvider.Local,
         identityId: lowerCaseEmail,
+        common: { id: createUserDto.commonId },
       })
     );
 
