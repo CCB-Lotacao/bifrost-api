@@ -112,7 +112,7 @@ export class UserService {
       relations: ["common"],
     });
 
-    if (!user) {
+    if (!user?.email) {
       throw new UnauthorizedException("Email is invalid credentials");
     }
 
