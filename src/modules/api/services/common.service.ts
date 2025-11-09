@@ -1,4 +1,5 @@
 import {
+  ConflictException,
   Injectable,
   InternalServerErrorException,
   NotFoundException,
@@ -27,6 +28,14 @@ export class CommonService {
   }
 
   public async create(createCommonDto: CreateCommonDto): Promise<Common> {
+    const { name } = createCommonDto;
+
+    const existingCommon = await Common.findOne({ where: { name } });
+
+    if (existingCommon) {
+      throw new ConflictException(`A church with the name already exists`);
+    }
+
     const common = await Common.save(
       Common.create({
         name: createCommonDto.name,
@@ -42,18 +51,27 @@ export class CommonService {
     commonId: string,
     updateCommonDto: UpdateCommonDto
   ): Promise<Common> {
-    const { ...updateCommonData } = updateCommonDto;
-    const common = await Common.findOne({
-      where: { id: commonId },
-    });
+    const { name, ...rest } = updateCommonDto;
 
+    const common = await Common.findOne({ where: { id: commonId } });
     if (!common) {
       throw new NotFoundException(`Common ${commonId} not found`);
     }
 
-    const updateData = removeUndefinedFields(updateCommonData);
+    if (name && name !== common.name) {
+      const commonWithSameName = await Common.findOne({
+        where: { name },
+      });
 
-    return Common.save(Common.create(Object.assign(common, updateData)));
+      if (commonWithSameName) {
+        throw new ConflictException("A church with the name already exists");
+      }
+    }
+
+    const updateData = removeUndefinedFields({ name, ...rest });
+
+    Object.assign(common, updateData);
+    return Common.save(common);
   }
 
   public async delete(id: string): Promise<void> {

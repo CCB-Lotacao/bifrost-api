@@ -106,7 +106,7 @@ export class UserService {
   public async authenticate(
     email: string,
     password: string
-  ): Promise<{ user: User; acessToken: string }> {
+  ): Promise<{ user: User; acessToken: string; refreshToken: string }> {
     const user = await User.findOne({
       where: { email: ILike(email.toLowerCase()) },
       relations: ["common"],
@@ -132,7 +132,11 @@ export class UserService {
       { expiresIn: 900 }
     );
 
-    return { user, acessToken };
+    const refreshToken = jwt.sign({ sub: user.id }, this.JWT_SECRET, {
+      expiresIn: "7d",
+    });
+
+    return { user, acessToken, refreshToken };
   }
 
   public async updateUserCommon(id: string, commonId: string): Promise<User> {

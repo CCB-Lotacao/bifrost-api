@@ -1,6 +1,6 @@
 export enum VehicleType {
   Van = "van",
-  Minibus = "minibus",
-  CityBus = "city_bus",
+  Mini_bus = "mini_bus",
+  City_Bus = "city_bus",
   Bus = "bus",
 }

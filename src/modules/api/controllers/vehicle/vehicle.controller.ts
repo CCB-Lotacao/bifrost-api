@@ -12,20 +12,18 @@ import {
 } from "@nestjs/common";
 import {
   ApiBadGatewayResponse,
-  ApiBody,
   ApiConflictResponse,
   ApiCreatedResponse,
   ApiNoContentResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
-  ApiParam,
   ApiQuery,
   ApiTags,
   ApiUnprocessableEntityResponse,
 } from "@nestjs/swagger";
 import { Auth } from "../../decorators";
 import { VehicleService } from "../../services";
-import { CreateVehicleDto, UpdateUserDto, UpdateVehicleDto } from "../../dtos";
+import { CreateVehicleDto, UpdateVehicleDto } from "../../dtos";
 import { DefaultHeaders } from "../../decorators/defaultHeaders.decorator";
 import { Permission } from "../../../../domain/enums";
 

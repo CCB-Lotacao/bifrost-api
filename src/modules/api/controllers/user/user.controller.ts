@@ -85,17 +85,6 @@ export class UserController {
     return this.userService.delete(userId);
   }
 
-  @Post("login")
-  @HttpCode(HttpStatus.OK)
-  @ApiOkResponse()
-  @ApiNotFoundResponse()
-  public async login(@Body() loginUserDto: LoginUserDto) {
-    return this.userService.authenticate(
-      loginUserDto.email,
-      loginUserDto.password
-    );
-  }
-
   @Patch(":userId/userCommon")
   @HttpCode(HttpStatus.ACCEPTED)
   @ApiCreatedResponse()

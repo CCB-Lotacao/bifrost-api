@@ -12,3 +12,6 @@ export * from "./vehicle/vehicle.controller";
 
 // common
 export * from "./common/common.controller";
+
+//auth
+export * from "./auth/auth.controller";

@@ -1,6 +1,10 @@
 import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { CommonController, UserController } from "./controllers";
+import {
+  AuthController,
+  CommonController,
+  UserController,
+} from "./controllers";
 import {
   CommonService,
   UserService,
@@ -38,6 +42,7 @@ import { UserRepository, VehicleRepository } from "../database/repositories";
     VehicleModelController,
     VehicleController,
     CommonController,
+    AuthController,
   ],
   providers: [
     CommonService,
