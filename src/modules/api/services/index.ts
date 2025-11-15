@@ -10,5 +10,5 @@ export * from "./vehicleModel.service";
 // vehicle
 export * from "./vehicle.service";
 
-// common
-export * from "./common.service";
+// church
+export * from "./church.service";

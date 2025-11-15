@@ -21,12 +21,7 @@ import {
 
 import { Permission } from "../../../../domain/enums";
 import { UserService } from "../../services";
-import {
-  CreateUserDto,
-  UpdateUserDto,
-  LoginUserDto,
-  UpdateUserCommonDto,
-} from "../../dtos";
+import { CreateUserDto, UpdateUserDto, LoginUserDto } from "../../dtos";
 import { Auth } from "../../decorators";
 import { DefaultHeaders } from "../../decorators/defaultHeaders.decorator";
 
@@ -83,21 +78,5 @@ export class UserController {
   @Auth(Permission.WriteUser)
   public delete(@Param("userId") userId: string) {
     return this.userService.delete(userId);
-  }
-
-  @Patch(":userId/userCommon")
-  @HttpCode(HttpStatus.ACCEPTED)
-  @ApiCreatedResponse()
-  @ApiBadGatewayResponse()
-  @ApiUnprocessableEntityResponse()
-  @Auth(Permission.WriteUser)
-  public updateUserCommon(
-    @Param("userId") userId: string,
-    @Body() updateUserCommonDto: UpdateUserCommonDto
-  ) {
-    return this.userService.updateUserCommon(
-      userId,
-      updateUserCommonDto.commonId
-    );
   }
 }

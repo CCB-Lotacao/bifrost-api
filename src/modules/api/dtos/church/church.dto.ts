@@ -9,7 +9,7 @@ import {
 } from "class-validator";
 import { UserDto } from "../user/user.dto";
 
-export class CommonDto {
+export class ChurchDto {
   @AutoMap()
   @IsUUID()
   @IsNotEmpty()

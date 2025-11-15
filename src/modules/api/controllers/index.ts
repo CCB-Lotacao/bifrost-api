@@ -10,8 +10,8 @@ export * from "./vehicleModel/vehicleModel.controller";
 // vehicle
 export * from "./vehicle/vehicle.controller";
 
-// common
-export * from "./common/common.controller";
+// church
+export * from "./church/church.controller";
 
 //auth
 export * from "./auth/auth.controller";

@@ -2,11 +2,11 @@ import { MiddlewareConsumer, Module, NestModule } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import {
   AuthController,
-  CommonController,
+  ChurchController,
   UserController,
 } from "./controllers";
 import {
-  CommonService,
+  ChurchService,
   UserService,
   VehicleManufacturerService,
   VehicleService,
@@ -16,7 +16,7 @@ import { VehicleModelService } from "./services/vehicleModel.service";
 import { VehicleModelController } from "./controllers/vehicleModel/vehicleModel.controller";
 import { VehicleController } from "./controllers/vehicle/vehicle.controller";
 import {
-  Common,
+  Church,
   User,
   Vehicle,
   VehicleManufacturer,
@@ -33,7 +33,7 @@ import { UserRepository, VehicleRepository } from "../database/repositories";
       VehicleManufacturer,
       UserRepository,
       VehicleRepository,
-      Common,
+      Church,
     ]),
   ],
   controllers: [
@@ -41,11 +41,11 @@ import { UserRepository, VehicleRepository } from "../database/repositories";
     VehicleManufacturerController,
     VehicleModelController,
     VehicleController,
-    CommonController,
+    ChurchController,
     AuthController,
   ],
   providers: [
-    CommonService,
+    ChurchService,
     UserService,
     VehicleManufacturerService,
     VehicleModelService,

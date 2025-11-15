@@ -11,7 +11,7 @@ import {
 } from "class-validator";
 import { UserRole } from "../../../../domain/enums";
 
-export class CreateCommonDto {
+export class CreateChurchDto {
   @AutoMap()
   @IsString()
   @IsNotEmpty()

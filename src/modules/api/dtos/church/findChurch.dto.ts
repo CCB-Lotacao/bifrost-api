@@ -1,7 +1,7 @@
 import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional, IsString } from "class-validator";
 
-export class FindCommonDto {
+export class FindChurchDto {
   @ApiProperty({ required: false, nullable: true })
   @IsOptional()
   @IsString()

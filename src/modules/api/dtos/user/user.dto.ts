@@ -9,7 +9,7 @@ import {
   IsUUID,
 } from "class-validator";
 import { UserRole } from "../../../../domain/enums";
-import { CommonDto } from "..";
+import { ChurchDto } from "..";
 
 export class UserDto {
   @AutoMap()
@@ -52,9 +52,9 @@ export class UserDto {
   @ApiProperty({ required: true, default: UserRole.Brotherhood })
   public readonly role!: UserRole;
 
-  @AutoMap(() => CommonDto)
+  @AutoMap(() => ChurchDto)
   @ApiProperty({ required: false })
-  public readonly common?: CommonDto;
+  public readonly church?: ChurchDto;
 
   @AutoMap()
   @IsDate()

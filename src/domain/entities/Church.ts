@@ -12,7 +12,7 @@ import { AutoMap } from "@automapper/classes";
 import { User } from "./User";
 
 @Entity()
-export class Common extends BaseEntity {
+export class Church extends BaseEntity {
   @AutoMap()
   @PrimaryGeneratedColumn("uuid")
   public readonly id!: string;
@@ -30,7 +30,7 @@ export class Common extends BaseEntity {
   public readonly city?: string;
 
   @AutoMap()
-  @OneToMany(() => User, (user) => user.common, {
+  @OneToMany(() => User, (user) => user.church, {
     nullable: false,
   })
   public readonly user!: User[];

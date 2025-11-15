@@ -7,10 +7,11 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from "typeorm";
 import { AutoMap } from "@automapper/classes";
 import { IdentityProvider, UserRole } from "../enums";
-import { Common } from ".";
+import { Church } from ".";
 
 @Entity()
 export class User extends BaseEntity {
@@ -32,11 +33,11 @@ export class User extends BaseEntity {
 
   @AutoMap()
   @Column({ nullable: true })
-  public readonly state?: string;
+  public state?: string;
 
   @AutoMap()
   @Column({ nullable: true })
-  public readonly city?: string;
+  public city?: string;
 
   @AutoMap()
   @Column({
@@ -48,19 +49,23 @@ export class User extends BaseEntity {
 
   @AutoMap()
   @Column()
-  public readonly identityProvider!: IdentityProvider;
+  public identityProvider!: IdentityProvider;
 
   @AutoMap()
   @Column()
-  public readonly identityId!: string;
+  public identityId!: string;
 
   @AutoMap()
   @Column()
   public password!: string;
 
   @AutoMap()
-  @ManyToOne(() => Common, (common) => common.user, { nullable: true })
-  public common?: Common;
+  @ManyToOne(() => Church, (church) => church.user, { nullable: true })
+  @JoinColumn({ name: "churchId" })
+  public church?: Church;
+
+  @Column({ nullable: true })
+  public churchId?: string;
 
   @AutoMap()
   @CreateDateColumn({ type: "timestamptz" })

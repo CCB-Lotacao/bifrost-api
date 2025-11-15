@@ -8,8 +8,6 @@ export * from "./user/user.dto";
 export * from "./user/createUser.dto";
 export * from "./user/updateUser.dto";
 export * from "./user/loginUser.dto";
-export * from "./user/updateUserCommon.dto";
-
 // vehicle
 export * from "./vehicle/createVehicle.dto";
 export * from "./vehicle/findVehicle.dto";
@@ -26,8 +24,8 @@ export * from "./vehicleManufacturer/vehicleManufacturer.dto";
 export * from "./vehicleManufacturer/findVehicleManufacturer.dto";
 export * from "./vehicleManufacturer/createVehicleManufacturer.dto";
 
-// common
-export * from "./common/common.dto";
-export * from "./common/createCommon.dto";
-export * from "./common/findCommon.dto";
-export * from "./common/updateCommon.dto";
+// church
+export * from "./church/church.dto";
+export * from "./church/createChurch.dto";
+export * from "./church/findChurch.dto";
+export * from "./church/updateChurch.dto";

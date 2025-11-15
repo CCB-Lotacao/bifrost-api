@@ -30,5 +30,5 @@ export class FindUserDto {
   @ApiProperty({ required: false, nullable: true })
   @IsOptional()
   @IsUUID()
-  public readonly commonId?: string;
+  public readonly churchId?: string;
 }

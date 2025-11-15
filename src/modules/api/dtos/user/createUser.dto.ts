@@ -51,7 +51,7 @@ export class CreateUserDto {
   @AutoMap()
   @ApiProperty({ required: false })
   @IsUUID()
-  public readonly commonId?: string;
+  public readonly churchId?: string;
 
   @IsString()
   @IsNotEmpty()

@@ -10,5 +10,5 @@ export * from "./VehicleManufacturer";
 export * from "./Identity";
 export * from "./Authorization";
 
-// common
-export * from "./Common";
+// church
+export * from "./Church";

@@ -22,30 +22,30 @@ import {
 import { Permission } from "../../../../domain/enums";
 import { Auth } from "../../decorators";
 import { DefaultHeaders } from "../../decorators/defaultHeaders.decorator";
-import { CommonService } from "../../services";
-import { CreateCommonDto, UpdateCommonDto } from "../../dtos";
+import { ChurchService } from "../../services";
+import { CreateChurchDto, UpdateChurchDto } from "../../dtos";
 
-@Controller("commons")
-@ApiTags("Common")
+@Controller("churchs")
+@ApiTags("Church")
 @DefaultHeaders()
-export class CommonController {
-  constructor(private readonly commonService: CommonService) {}
+export class ChurchController {
+  constructor(private readonly churchService: ChurchService) {}
 
   @Get()
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
-  // @Auth(Permission.ReadCommon)
+  // @Auth(Permission.ReadChurch)
   public find() {
-    return this.commonService.find();
+    return this.churchService.find();
   }
 
-  @Get(":commonId")
+  @Get(":churchId")
   @HttpCode(HttpStatus.OK)
   @ApiOkResponse()
   @ApiNotFoundResponse()
-  @Auth(Permission.ReadCommon)
-  public findOne(@Param("commonId") commonId: string) {
-    return this.commonService.findOne(commonId);
+  @Auth(Permission.ReadChurch)
+  public findOne(@Param("churchId") churchId: string) {
+    return this.churchService.findOne(churchId);
   }
 
   @Post()
@@ -53,30 +53,30 @@ export class CommonController {
   @ApiCreatedResponse()
   @ApiBadGatewayResponse()
   @ApiUnprocessableEntityResponse()
-  @Auth(Permission.WriteCommon)
-  public create(@Body() createCommonDto: CreateCommonDto) {
-    return this.commonService.create(createCommonDto);
+  @Auth(Permission.WriteChurch)
+  public create(@Body() createChurchDto: CreateChurchDto) {
+    return this.churchService.create(createChurchDto);
   }
 
-  @Patch(":commonId")
+  @Patch(":churchId")
   @HttpCode(HttpStatus.ACCEPTED)
   @ApiCreatedResponse()
   @ApiBadGatewayResponse()
   @ApiUnprocessableEntityResponse()
-  @Auth(Permission.WriteCommon)
+  @Auth(Permission.WriteChurch)
   public update(
-    @Param("commonId") commonId: string,
-    @Body() updateCommonDto: UpdateCommonDto
+    @Param("churchId") churchId: string,
+    @Body() updateChurchDto: UpdateChurchDto
   ) {
-    return this.commonService.update(commonId, updateCommonDto);
+    return this.churchService.update(churchId, updateChurchDto);
   }
 
-  @Delete(":commonId")
+  @Delete(":churchId")
   @HttpCode(HttpStatus.NO_CONTENT)
   @ApiNoContentResponse()
   @ApiNotFoundResponse()
-  @Auth(Permission.WriteCommon)
-  public delete(@Param("commonId") commonId: string) {
-    return this.commonService.delete(commonId);
+  @Auth(Permission.WriteChurch)
+  public delete(@Param("churchId") churchId: string) {
+    return this.churchService.delete(churchId);
   }
 }

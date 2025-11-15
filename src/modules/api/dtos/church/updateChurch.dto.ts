@@ -2,7 +2,7 @@ import { AutoMap } from "@automapper/classes";
 import { ApiProperty } from "@nestjs/swagger";
 import { IsOptional, IsString, IsUUID } from "class-validator";
 
-export class UpdateCommonDto {
+export class UpdateChurchDto {
   @AutoMap()
   @IsString()
   @IsOptional()

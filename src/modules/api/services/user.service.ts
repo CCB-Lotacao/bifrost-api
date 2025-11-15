@@ -12,16 +12,16 @@ import { User } from "../../../domain/entities";
 import { EntityNotFoundError, Equal, ILike } from "typeorm";
 import { CreateUserDto, UpdateUserDto } from "../dtos";
 import { IdentityProvider } from "../../../domain/enums";
-import { CommonService } from "./common.service";
+import { ChurchService } from "./church.service";
 
 @Injectable()
 export class UserService {
-  constructor(private readonly commonService: CommonService) {}
+  constructor(private readonly churchService: ChurchService) {}
   private readonly JWT_SECRET = process.env.JWT_SECRET || "your-secret-key";
   private readonly SALT_ROUNDS = 10;
   public async find(): Promise<User[]> {
     return await User.find({
-      relations: ["common"],
+      relations: ["church"],
     });
   }
 
@@ -29,7 +29,7 @@ export class UserService {
     try {
       return await User.findOneOrFail({
         where: { id: Equal(id) },
-        relations: ["common"],
+        relations: ["church"],
       });
     } catch (error) {
       if (error instanceof EntityNotFoundError) {
@@ -70,7 +70,7 @@ export class UserService {
         password: hashedPassword,
         identityProvider: IdentityProvider.Local,
         identityId: lowerCaseEmail,
-        common: { id: createUserDto.commonId },
+        churchId: createUserDto.churchId,
       })
     );
 
@@ -109,7 +109,7 @@ export class UserService {
   ): Promise<{ user: User; acessToken: string; refreshToken: string }> {
     const user = await User.findOne({
       where: { email: ILike(email.toLowerCase()) },
-      relations: ["common"],
+      relations: ["church"],
     });
 
     if (!user?.email) {
@@ -137,19 +137,5 @@ export class UserService {
     });
 
     return { user, acessToken, refreshToken };
-  }
-
-  public async updateUserCommon(id: string, commonId: string): Promise<User> {
-    const user = await User.findOneBy({ id });
-    if (!user) {
-      throw new NotFoundException(`User ${id} not found`);
-    }
-
-    const common = await this.commonService.findOne(commonId);
-    if (!common) {
-      throw new NotFoundException(`Common ${commonId} not found`);
-    }
-    user.common = common;
-    return await User.save(user);
   }
 }
